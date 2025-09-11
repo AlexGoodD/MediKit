@@ -24,11 +24,10 @@ fun HomeView(navController: NavController, modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 24.dp, vertical = 16.dp)
-            .verticalScroll(rememberScrollState()), // scroll si es necesario
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Título principal
         Text(
             text = "Analiza tu herida",
             style = MaterialTheme.typography.headlineMedium.copy(
@@ -41,7 +40,6 @@ fun HomeView(navController: NavController, modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Subtítulo
         Text(
             text = "Sube o toma una foto para recibir un análisis instantáneo con IA",
             style = MaterialTheme.typography.bodyLarge.copy(
@@ -53,26 +51,23 @@ fun HomeView(navController: NavController, modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Placeholder cuadrado
         ImagePlaceholder(
             onClick = { println("Image Placeholder Clicked") },
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f) // 👈 siempre cuadrado
+                .aspectRatio(1f)
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Botón principal
         PrimaryButton(
             text = "Tomar foto",
             icon = Icons.Filled.PhotoCamera,
-            onClick = { navController.navigate("wound") }
+            onClick = { navController.navigate("loading") }
         )
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // Botón secundario
         SecondaryButton(
             text = "Elegir desde galería",
             icon = Icons.Filled.Image,
@@ -81,7 +76,6 @@ fun HomeView(navController: NavController, modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Tarjeta de consejo
         AnnotationCard(
             icon = Icons.Filled.Lightbulb,
             title = "Consejo para la fotografía",

@@ -8,7 +8,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
@@ -16,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import com.example.medikit.ui.theme.MediKitTheme
 import com.example.medikit.ui.views.HomeView
+import com.example.medikit.ui.views.LoadingView
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 
@@ -38,10 +41,27 @@ class MainActivity : ComponentActivity() {
                             HomeView(navController)
                         }
                         composable(
+                            route = "loading",
+                            enterTransition = {
+                                slideInVertically(
+                                    initialOffsetY = { fullHeight -> fullHeight },
+                                    animationSpec = tween(300)
+                                )
+                            },
+                            exitTransition = {
+                                slideOutVertically(
+                                    targetOffsetY = { fullHeight -> fullHeight },
+                                    animationSpec = tween(300)
+                                )
+                            }
+                        ) {
+                            LoadingView(navController)
+                        }
+                        composable(
                             route = "wound",
                             enterTransition = {
                                 slideInHorizontally(
-                                    initialOffsetX = { fullWidth -> -fullWidth  },
+                                    initialOffsetX = { fullWidth -> -fullWidth },
                                     animationSpec = tween(300)
                                 )
                             },
