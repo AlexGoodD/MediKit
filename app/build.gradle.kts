@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.accompanist.navigation.animation)
     implementation(libs.androidx.animation.android)
     implementation(libs.androidx.foundation.android)
+    implementation(libs.androidx.activity.compose.v172)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

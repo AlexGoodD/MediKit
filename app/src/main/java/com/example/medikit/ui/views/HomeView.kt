@@ -1,4 +1,7 @@
 package com.example.medikit.ui.views
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -9,17 +12,34 @@ import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.medikit.ui.components.*
+import com.example.medikit.utils.rememberImagePickerLauncher
 
 @Composable
 fun HomeView(navController: NavController, modifier: Modifier = Modifier) {
+
+    val context = LocalContext.current
+    var selectedImageBitmap by remember { mutableStateOf<Bitmap?>(null) }
+
+    val imagePickerLauncher = rememberImagePickerLauncher { uri: Uri? ->
+        uri?.let {
+            val inputStream = context.contentResolver.openInputStream(it)
+            selectedImageBitmap = BitmapFactory.decodeStream(inputStream)
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -52,7 +72,8 @@ fun HomeView(navController: NavController, modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(24.dp))
 
         ImagePlaceholder(
-            onClick = { println("Image Placeholder Clicked") },
+            bitmap = selectedImageBitmap,
+            onClick = { imagePickerLauncher.launch("image/*") },
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
@@ -71,7 +92,7 @@ fun HomeView(navController: NavController, modifier: Modifier = Modifier) {
         SecondaryButton(
             text = "Elegir desde galería",
             icon = Icons.Filled.Image,
-            onClick = { println("Choose from Gallery Clicked") }
+            onClick = { imagePickerLauncher.launch("image/*") }
         )
 
         Spacer(modifier = Modifier.height(24.dp))

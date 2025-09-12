@@ -45,10 +45,11 @@ fun ConfidenceBar(
         ) {
             Text(
                 text = "Nivel de confianza",
-                style = MaterialTheme.typography.bodyLarge.copy(
+                style = MaterialTheme.typography.titleMedium.copy(
+                    color = Color(0xFF111827),
                     fontSize = 18.sp,
-                    color = Color(0xFF111827)
-                )
+                    fontWeight = FontWeight.Normal
+                ),
             )
             Text(
                 text = "$percentage%",
