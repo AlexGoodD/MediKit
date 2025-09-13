@@ -26,9 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.medikit.ui.components.*
 import com.example.medikit.utils.rememberImagePickerLauncher
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.medikit.viewmodels.WoundViewModel
 
 @Composable
-fun HomeView(navController: NavController, modifier: Modifier = Modifier) {
+fun HomeView(navController: NavController, modifier: Modifier = Modifier, viewModel: WoundViewModel = viewModel()) {
 
     val context = LocalContext.current
     var selectedImageBitmap by remember { mutableStateOf<Bitmap?>(null) }
@@ -37,6 +39,12 @@ fun HomeView(navController: NavController, modifier: Modifier = Modifier) {
         uri?.let {
             val inputStream = context.contentResolver.openInputStream(it)
             selectedImageBitmap = BitmapFactory.decodeStream(inputStream)
+
+            selectedImageBitmap?.let { bitmap ->
+                viewModel.analyzeImage(bitmap) {
+                    navController.navigate("wound")
+                }
+            }
         }
     }
 

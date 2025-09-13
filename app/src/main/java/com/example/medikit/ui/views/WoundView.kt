@@ -34,6 +34,8 @@ import com.example.medikit.ui.components.PrimaryButton
 import com.example.medikit.ui.components.RecommendationList
 import com.example.medikit.ui.components.SeverityCard
 import com.example.medikit.ui.components.WoundTypeCard
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.medikit.viewmodels.WoundViewModel
 
 private const val CONFIDENCE_PERCENTAGE = 12
 private const val WOUND_TYPE = "alergias" // alergias/cortaduras/esguinces/fracturas/hematomas/no_lesiones/quemaduras/raspaduras
@@ -48,7 +50,13 @@ private const val SEVERITY_LEVEL = "low" // low/medium/high
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WoundView(navController: NavController, modifier: Modifier = Modifier) {
+fun WoundView(navController: NavController, modifier: Modifier = Modifier, viewModel: WoundViewModel = viewModel()) {
+    val bitmap = viewModel.imageBitmap.value
+    val wound = viewModel.woundType.value
+    val confidence = viewModel.confidence.value
+    val severity = viewModel.severity.value
+    val recommendations = viewModel.recommendations.value
+
     Scaffold(
         containerColor = Color.White,
         topBar = {
@@ -103,21 +111,21 @@ fun WoundView(navController: NavController, modifier: Modifier = Modifier) {
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 ConfidenceBar(
-                    percentage = CONFIDENCE_PERCENTAGE,
+                    percentage = confidence,
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 WoundTypeCard(
                     modifier = Modifier.fillMaxWidth(),
-                    type = WOUND_TYPE
+                    type = wound
                 )
 
                 RecommendationList(
                     title = "Recomendaciones",
-                    recommendations = RECOMMENDATIONS_LIST
+                    recommendations = recommendations
                 )
 
-                SeverityCard(severity = SEVERITY_LEVEL)
+                SeverityCard(severity = severity)
             }
 
             Spacer(modifier = Modifier.height(20.dp))
