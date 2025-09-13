@@ -83,6 +83,6 @@ fun WoundTypeCard(
             }
         }
     } else {
-        Text("Tipo de lesión no reconocido")
+        Text("Tipo de lesión no reconocida")
     }
 }
