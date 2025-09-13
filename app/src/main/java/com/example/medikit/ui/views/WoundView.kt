@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.medikit.ui.components.ConfidenceBar
 import com.example.medikit.ui.components.DisclaimerCard
+import com.example.medikit.ui.components.ImagePlaceholder
 import com.example.medikit.ui.components.PrimaryButton
 import com.example.medikit.ui.components.RecommendationList
 import com.example.medikit.ui.components.SeverityCard
@@ -49,6 +50,7 @@ private const val SEVERITY_LEVEL = "low" // low/medium/high
 @Composable
 fun WoundView(navController: NavController, modifier: Modifier = Modifier) {
     Scaffold(
+        containerColor = Color.White,
         topBar = {
             TopAppBar(
                 title = { Text("Resultados del análisis") },
@@ -82,11 +84,10 @@ fun WoundView(navController: NavController, modifier: Modifier = Modifier) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-//            ImagePlaceholder(
-//                onClick = { println("Image Placeholder Clicked") },
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//            )
+            ImagePlaceholder(
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
 
             Spacer(modifier = Modifier.height(20.dp))
 

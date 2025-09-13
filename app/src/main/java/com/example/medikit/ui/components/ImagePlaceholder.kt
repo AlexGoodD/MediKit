@@ -33,8 +33,8 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ImagePlaceholder(
-    bitmap: Bitmap?,
-    onClick: () -> Unit,
+    bitmap: Bitmap? = null,
+    onClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val cornerRadius = 12.dp
@@ -63,7 +63,9 @@ fun ImagePlaceholder(
                 color = Color(0xFFF3F4F6),
                 shape = RoundedCornerShape(cornerRadius)
             )
-            .clickable { onClick() }
+            .clickable(enabled = onClick != null) {
+                onClick?.invoke()
+            }
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
